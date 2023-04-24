@@ -1,0 +1,288 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{braket}
+\usepackage{xeCJK}
+\setCJKmainfont{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{固体物理第二次作业}
+\author{董建宇 ~~ 2019511017}
+
+\begin{document}
+
+\maketitle
+\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+
+\section{(3.1)}
+\begin{enumerate}
+	\item (金属的电导率): \\
+	假设在$t$时刻电子动量为$\vec{p}(t)$，由Drude模型假设可知，在$t+dt$时刻，电子动量为：
+	\[
+		\vec{p}(t+dt) = \frac{dt}{\tau} \times 0 + \left( 1-\frac{dt}{\tau} \right) \left( \vec{p}(t) - e\vec{E}\,dt \right).
+	\]
+	忽略高阶小量，整理可得：
+	\[
+		\frac{\,d\vec{p}(t)}{\,dt} = -e\vec{E} - \frac{\vec{p}(t)}{\tau}.
+	\]
+	当达到平衡状态时，有$\frac{\,d\langle \vec{p}(t) \rangle}{\,dt} = 0$，即
+	\[
+		\langle \vec{v} \rangle = -\frac{e\tau \vec{E}}{m}.
+	\]
+	由电流密度定义可知：
+	\[
+		\vec{j} = -ne\langle \vec{v} \rangle = \sigma \vec{E}.
+	\]
+	则金属的电导率为：
+	\[
+		\sigma = \frac{n\tau e^2}{m}.
+	\]
+	其中$n$为电子数密度。
+	
+	\item (金属的电阻率): \\
+	再外加磁场作用下，牛顿第二定律为：
+	\[
+		\frac{d\vec{p}(t)}{dt} = -e(\vec{E}+\vec{v} \times \vec{B}) - \frac{\vec{p}(t)}{\tau}.
+	\]
+	当达到平衡状态时，有$\frac{d\langle \vec{p}(t) \rangle}{dt} = 0$，即对于三个电场分量有
+	\begin{equation*}
+	\begin{aligned}
+		E_x =& -\frac{m\langle v_x \rangle}{e\tau} - \langle v_y \rangle B_z \\
+		E_y =& -\frac{m\langle v_y \rangle}{e\tau} + \langle v_x \rangle B_z \\
+		E_z =& -\frac{m\langle v_z \rangle}{e\tau}
+	\end{aligned}
+	\end{equation*}
+	利用$\vec{E} = \rho \vec{j} = -ne\rho \langle \vec{v} \rangle$，可知矩阵$\rho$为：
+	\[
+		\rho = \begin{pmatrix}
+			\frac{m}{ne^2\tau} & \frac{B_z}{ne} & 0 \\
+			-\frac{B_z}{ne} & \frac{m}{ne^2\tau} & 0 \\
+			0 & 0 & \frac{m}{ne^2\tau}
+		\end{pmatrix}.
+	\]
+	矩阵的逆为：
+	\[
+		\sigma = \begin{pmatrix}
+			\frac{ne^2\tau m}{m^2+\tau^2e^2B_z^2} & -\frac{ne^3\tau^2B_z}{m^2+\tau^2e^2B_z^2} & 0 \\
+			\frac{ne^3\tau^2B_z}{m^2+\tau^2e^2B_z^2} & \frac{ne^2\tau m}{m^2+\tau^2e^2B_z^2} & 0 \\
+			0 & 0 & \frac{ne^2\tau}{m}
+		\end{pmatrix}.
+	\]
+	
+	\item (霍尔效应): \\
+%	在平衡状态下，有洛伦兹力等于电场力，即：
+%	\[
+%		-e\frac{U_H}{d} = -evB.
+%	\]
+%	利用电流微观表达式$I = -ned^2v$可知：
+%	\[
+%		U_H = -\frac{1}{ne}\frac{IB}{d}.
+%	\]
+	霍尔系数被定义为：
+	\[
+		H = \frac{\rho_{yx}}{\vert B \vert} = -\frac{1}{ne}.
+	\]
+	由题意可知，电子数密度为：
+	\[
+		n = \frac{N}{V} = \frac{N\rho}{m} = \frac{N_A\rho}{M}.
+	\]
+	则霍尔系数为：
+	\[
+		H = -\frac{M}{e\rho N_A}.
+	\]
+	代入数据可知：$H = -2.38\times 10^{-10}m^3/C$. \\
+	霍尔电压为：
+	\[
+		\vert U_H \vert = \frac{HIB}{d} = 4.77\times 10^{-8} V.
+	\]
+	在测量霍尔电压时，遇到的问题以及解决思路主要有：\\
+	霍尔电压极小，不容易被测量到；使用更敏感的电压表。 \\
+	会导致发热；搭建一套散热系统。
+	
+	\item (Drude模型无法解释的金属的性质): \\
+	金属中每个电子的热熔不是$\frac{3k_B}{2}$。 \\
+	不同金属加热产生电压不同，即不同金属的Seebeck系数不同。 \\
+	不同材料的霍尔系数符号不同。 \\
+	在计算过程中只考虑价电子而不考虑内层电子。
+	
+	\item (交流电下电导率矩阵): \\
+	当散射平均时间$\tau \to \infty$时，在电场磁场作用下牛顿第二定律为：
+	\[
+		\frac{d\vec{p}}{dt} = -e\vec{E} - e\vec{v}\times\vec{B}.
+	\]
+%	平衡状态下有：$\frac{d\vec{p}}{dt} = 0$，即：
+%	\[
+%		\vec{E} = -\vec{v}\times\vec{B}
+%	\]
+	利用电流密度围观表达式$\vec{j} = -ne\vec{v} = -\frac{ne\vec{p}}{m_e}$可得：
+	\[
+		\vec{E} = -\frac{1}{e}\frac{d\vec{p}}{dt} - \vec{v}\times\vec{B} = \frac{m_e}{ne^2}\frac{d\vec{j}}{dt} + \frac{1}{ne}\vec{j}\times\vec{B}.
+	\]
+	由题意可知：
+	\[
+		\vec{E} = \vec{E}_0 e^{i\omega t}, ~~ \vec{j} = \vec{j}_0 e^{i\omega t}.
+	\]
+	代入上式方程可得：
+	\[
+		\vec{E} = \frac{i\omega m_e}{ne^2}\vec{j} + \frac{1}{ne}\vec{j}\times\vec{B}.
+	\]
+	则电阻率矩阵为：
+	\[
+		\rho(\omega) = \begin{pmatrix}
+			\frac{i\omega m_e}{ne^2} & \frac{B_z}{ne} & 0 \\
+			-\frac{B_z}{ne} & \frac{i\omega m_e}{ne^2} & 0 \\
+			0 & 0 & \frac{i\omega m_e}{ne^2} 
+		\end{pmatrix}.
+	\]
+	电导率矩阵为：
+	\[
+		\sigma(\omega) = \begin{pmatrix}
+			\frac{i\omega m_ene^2}{B_z^2e^2-\omega^2m_e^2} & -\frac{ne^3B_z}{B_z^2e^2-\omega^2m_e^2} & 0 \\
+			\frac{ne^3B_z}{B_z^2e^2-\omega^2m_e^2} & \frac{i\omega m_ene^2}{B_z^2e^2-\omega^2m_e^2} & 0 \\
+			0 & 0 & -\frac{ine^2}{\omega m_e} 
+		\end{pmatrix}.
+	\]
+\end{enumerate}
+
+
+\section{(3.2)}
+\begin{enumerate}
+	\item (Drude散射时间): \\
+	由第一题可知，金属电阻率为：
+	\[
+		\rho = \frac{1}{\sigma} = \frac{m_e}{n\tau e^2}.
+	\]
+	其中，粒子数密度为：
+	\[
+		n = \frac{N}{V} = \frac{N\rho_m}{m} = \frac{N_A \rho_m}{w}.
+	\]
+	其中$\rho_m$为金属密度。则有电阻率为：
+	\[
+		\rho = \frac{m_ew}{\tau e^2N_A\rho_m}.
+	\]
+	散射时间为：
+	\[
+		\tau = \frac{m_ew}{e^2N_A\rho_m\rho}.
+	\]
+	代入表格数据可得银和锂的散射时间分别为（题中电阻率指数应为(-8)）：
+	\[
+		\tau_{Ag} = 3.80 \times 10^{-14}s; ~~ \tau_{Li} = 8.31 \times 10^{-15}s.
+	\]
+	
+	\item (气体动理论): \\
+	对于氮气分子，质量约为$m_{N_2} = 28m_p$，其中$m_p$为一个质子质量。气体分子数密度约为：
+	\[
+		n = \frac{N_A}{V_m} \approx 2.688\times 10^{25}.
+	\]
+	则散射时间约为：
+	\[
+		\tau = \frac{1}{n\langle v \rangle\sigma} \approx 1.82 \times 10^{-10}s.
+	\]
+	氮气分子散射时间远大于金属中电子散射时间，即金属中电子的被散射几率远大于氮气分子的被散射几率，由于金属中自由电子数密度远大于氮气分子数密度。
+\end{enumerate}
+
+
+\section{(3.3)}
+\begin{enumerate}
+	\item (电阻率): \\
+	对于电子而言有：
+	\[
+		\vec{p}_e(t+dt) = \frac{dt}{\tau_e}\times 0 + \left( 1-\frac{dt}{\tau_e} \right) \left( \vec{p}_e(t) - e\vec{E}\,dt \right)
+	\]
+	忽略高阶小量，即
+	\[
+		\frac{d\vec{p}_e(t)}{dt} = -\frac{\vec{p}_e(t)}{\tau_e} - e\vec{E}.
+	\]
+	平衡状态下有$\frac{d \vec{p}_e(t)}{dt} = 0$，即：
+	\[
+		\vec{v}_e = \frac{\vec{p}_e}{m_e} = -\frac{e\tau_e \vec{E}}{m_e}.
+	\]
+	同理，对于自由离子而言有：
+	\[
+		\vec{p}_i(t+dt) = \frac{dt}{\tau_i}\times 0 + \left( 1-\frac{dt}{\tau_i} \right) \left( \vec{p}_i(t) + e\vec{E}\,dt \right)
+	\]
+	忽略高阶小量，即
+	\[
+		\frac{d\vec{p}_i(t)}{dt} = -\frac{\vec{p}_i(t)}{\tau_i} + e\vec{E}.
+	\]
+	平衡状态下有$\frac{d \vec{p}_i(t)}{dt} = 0$，即：
+	\[
+		\vec{v}_i = \frac{\vec{p}_i}{m_i} = \frac{e\tau_i \vec{E}}{m_i}.
+	\]
+	则电流密度为：
+	\[
+		\vec{j} = -n_ee\vec{v}_e + n_ie\vec{v}_i = \left( \frac{n_ee^2\tau_e}{m_e} + \frac{n_ie^2\tau_i}{m_i} \right)\vec{E} = \sigma \vec{E}.
+	\]
+	即电阻率为：
+	\[
+		\rho = \frac{1}{\sigma} = \frac{m_em_i}{e^2(n_e\tau_em_i+n_i\tau_im_e)}.
+	\]
+	
+	\item (热导系数): \\
+	由课本公式可知：电子热导系数为：
+	\[
+		\kappa_e = \frac{4}{\pi} \frac{n_e\tau_ek_B^2T}{m_e}.
+	\]
+	同理可知，自由离子的热导系数为：
+	\[
+		\kappa_i = \frac{4}{\pi} \frac{n_i\tau_ik_B^2T}{m_i}.
+	\]
+	则系统热导系数为：
+	\[
+		\kappa = \kappa_e + \kappa_i = \frac{4k_B^2T}{\pi}\left( \frac{n_e\tau_e}{m_e} + \frac{n_i\tau_i}{m_i} \right)
+	\]
+	
+	\item (霍尔系数): \\
+	由第一题可知：电子与自由离子的电导率矩阵为：
+	\[
+		\sigma_e = \begin{pmatrix}
+			\frac{n_ee^2\tau_em_e}{m_e^2 + \tau_e^2e^2B_z^2} & -\frac{n_ee^3\tau_e^2B_z}{m_e^2 + \tau_e^2e^2B_z^2} & 0 \\
+			\frac{n_ee^3\tau_e^2B_z}{m_e^2 + \tau_e^2e^2B_z^2} & \frac{n_ee^2\tau_em_e}{m_e^2 + \tau_e^2e^2B_z^2} & 0 \\
+			0 & 0 & \frac{n_ee^2\tau_e}{m_e}
+		\end{pmatrix}.
+	\]
+	\[
+		\sigma_i = \begin{pmatrix}
+			\frac{n_ie^2\tau_im_i}{m_i^2 + \tau_i^2e^2B_z^2} & \frac{n_ie^3\tau_i^2B_z}{m_i^2 + \tau_i^2e^2B_z^2} & 0 \\
+			-\frac{n_ie^3\tau_i^2B_z}{m_i^2 + \tau_i^2e^2B_z^2} & \frac{n_ie^2\tau_im_i}{m_i^2 + \tau_i^2e^2B_z^2} & 0 \\
+			0 & 0 & \frac{n_ie^2\tau_i}{m_e}
+		\end{pmatrix}
+	\]
+	总电导率为：
+	\[
+		\sigma = \sigma_e + \sigma_i = \begin{pmatrix}
+			\frac{n_ee^2\tau_em_e}{m_e^2 + \tau_e^2e^2B_z^2} + \frac{n_ie^2\tau_im_i}{m_i^2 + \tau_i^2e^2B_z^2} & \frac{n_ie^3\tau_i^2B_z}{m_i^2 + \tau_i^2e^2B_z^2} - \frac{n_ee^3\tau_e^2B_z}{m_e^2 + \tau_e^2e^2B_z^2} & 0 \\
+			\frac{n_ee^3\tau_e^2B_z}{m_e^2 + \tau_e^2e^2B_z^2} - \frac{n_ie^3\tau_i^2B_z}{m_i^2 + \tau_i^2e^2B_z^2} & \frac{n_ee^2\tau_em_e}{m_e^2 + \tau_e^2e^2B_z^2} + \frac{n_ie^2\tau_im_i}{m_i^2 + \tau_i^2e^2B_z^2} & 0 \\
+			0 & 0 & \frac{n_ee^2\tau_e}{m_e} + \frac{n_ie^2\tau_i}{m_e}
+		\end{pmatrix}
+	\]
+	令
+	\[
+		A_e = \frac{m_e}{n_ee^2\tau_e}, ~ A_i = \frac{m_i}{n_ie^2\tau_i}, ~ C_e = -\frac{B_z}{n_ee}, ~ C_i = \frac{B_z}{n_ie}.
+	\]
+	则总电导率为：
+	\[
+		\sigma = \begin{pmatrix}
+			\frac{A_e(A_i^2 + C_i^2) + A_i(A_e^2 + C_e^2)}{(A_e^2 + C_e^2)(A_i^2 + C_i^2)} & \frac{C_e(A_i^2 + C_i^2) + C_i(A_e^2 + C_e^2)}{(A_e^2 + C_e^2)(A_i^2 + C_i^2)} & 0 \\
+			-\frac{C_e(A_i^2 + C_i^2) + C_i(A_e^2 + C_e^2)}{(A_e^2 + C_e^2)(A_i^2 + C_i^2)} & \frac{A_e(A_i^2 + C_i^2) + A_i(A_e^2 + C_e^2)}{(A_e^2 + C_e^2)(A_i^2 + C_i^2)} & 0 \\
+			0 & 0 & \frac{A_e + A_i}{A_eA_i}
+		\end{pmatrix}.
+	\]
+	则总电阻率为：
+	\[
+		\rho = \sigma^{-1} = \begin{pmatrix}
+			\frac{A_e(A_i^2 + C_i^2) + A_i(A_e^2 + C_e^2)}{(A_i+A_e)^2 + (C_i+C_e)^2} & \frac{C_e(A_i^2 + C_i^2) + C_i(A_e^2 + C_e^2)}{(A_i+A_e)^2 + (C_i+C_e)^2} & 0 \\
+			-\frac{C_e(A_i^2 + C_i^2) + C_i(A_e^2 + C_e^2)}{(A_i+A_e)^2 + (C_i+C_e)^2} & \frac{A_e(A_i^2 + C_i^2) + A_i(A_e^2 + C_e^2)}{(A_i+A_e)^2 + (C_i+C_e)^2} & 0 \\
+			0 & 0 & \frac{A_eA_i}{A_e+A_i}
+		\end{pmatrix}.
+	\]
+\end{enumerate}
+
+
+\end{document}
